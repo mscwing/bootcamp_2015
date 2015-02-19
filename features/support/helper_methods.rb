@@ -3,19 +3,23 @@ module HelperMethods
 
 
     #browser launch method
-    def browser_launch (b)
-      ENV['browser'] ||= 'firefox'
-      Watir::Browser.new transformation(b)
+    def browser_launch (chosen_browser)
+      if chosen_browser.nil?
+        ENV['browser'] ||= 'internet_explorer'
+      else
+        ENV['browser'] = chosen_browser
+      end
+      Watir::Browser.new transformation(ENV['browser'])
     end
 
     #modifying user input to browser symbols
     def transformation (chosen_browser)
       case chosen_browser.downcase
-        when 'internet explorer', 'ie'
+        when 'internet explorer', 'ie', 'internet_explorer'
           :internet_explorer
         when 'ff', 'firefox'
           :firefox
-        when 'google chrome', 'chrome'
+        when 'google chrome', 'google_chrome', 'chrome'
           :chrome
         when 'phantom', 'phantomjs'
           :phantomjs

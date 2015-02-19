@@ -7,8 +7,11 @@ Feature: Getting Started
 
   Examples:
     | browser |
-    | IE |
+    |  |
 #| Firefox |
 #| Chrome  |
 #| Phantomjs |
 #| Opera |
+
+  Scenario: Visit USA.gov
+    Given I am on the USA.gov homepage
