@@ -1,19 +1,10 @@
-Given(/^I open the "(.*?)" browser$/) do |browser|
-  @browser_opened = Watir::Browser.new to_browser_id(browser)
+Given(/^I launch "(.*)"$/) do |chosen_browser|
+  @browser = HelperMethods.browser_launch(chosen_browser)
+  @browser_name = @browser.name
 end
 
-Then(/^the "(.*?)" browser is open$/) do |browser|
-  fail ("The #{browser} browser is not open.") unless to_browser_id(browser).to_sym == @browser_opened.name
-end
-
-#Convert user names for browser to strings for watir-webdriver
-def to_browser_id (browser)
-  case browser.downcase
-    when 'internet explorer', 'ie'
-      'internet explorer'
-    when /phantom/
-      'phantomjs'
-    else
-      browser.downcase!.nil? ? browser : browser.downcase!
-  end
+Then(/^a "(.*)" instance will open$/) do |chosen_browser|
+  @browser_sym = HelperMethods.transformation(chosen_browser).to_sym
+  @browser.close
+  raise("The browser's actual name #{@browser_name} does not match expected name #{@browser_sym}") unless @browser_sym.to_sym.eql?(@browser_name)
 end

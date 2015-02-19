@@ -1,4 +1,5 @@
 source 'http://rubygems.org'
 
-gem 'watir-webdriver'
 gem 'cucumber'
+gem 'watir-webdriver'
+gem 'syntax'
