@@ -1,7 +1,7 @@
 Feature: USA gov home page
 
   Background:
-    Given I am on the USA.gov home page
+    Given I am on the "USA home" page
 
   Scenario: Search section exists
      Then I see a search field
@@ -66,8 +66,6 @@ Feature: USA gov home page
     When I submit a search "This.statement.can.have.50.characters.but.not....51"
     Then I see the search term truncated to 51 characters
 
-  Scenario: Failed Search section exists
+  Scenario: Failed search section
     Then I see a search field
-    And the field value is "Se1arch the Government..."
-    And I see a search button
-    And the button label is "Sea1rch"
+    And the search field value is "Selarch the Government..."
