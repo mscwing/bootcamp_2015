@@ -54,3 +54,4 @@ Then /^there is a link for each page section$/ do
 
   expect(section_links.sort).to match_array(sections.sort)
 end
+
