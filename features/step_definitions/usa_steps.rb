@@ -39,3 +39,18 @@ Then /^I see the search term truncated to (\d+) characters$/ do |character_numbe
 # get length of search string from edit field
   expect(@current_page.search_term_length).to eq(character_number.to_i)
 end
+
+Then /^I see a contents section$/ do
+  expect(@current_page.contents).to exist
+end
+
+Then /^the section title contains the text "(.*?)"$/ do |title|
+  expect(@current_page.contents_title).to include(title)
+end
+
+Then /^there is a link for each page section$/ do
+  section_links = @current_page.contents_link_names
+  sections = @current_page.section_titles
+
+  expect(section_links.sort).to match_array(sections.sort)
+end

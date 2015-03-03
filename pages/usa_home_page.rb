@@ -7,7 +7,7 @@ class UsaHomePage
     @url = 'www.usa.gov'
   end
 
-  #define elements
+  ########  define elements
   def search
     BROWSER.text_field(:id => "query")
   end
@@ -24,7 +24,23 @@ class UsaHomePage
     BROWSER.div(:id => 'no-results')
   end
 
-  #define methods
+  def contents
+    BROWSER.div(:class => 'hpboxcontainer')
+  end
+
+  def sections
+    BROWSER.divs(:class => /container/)
+  end
+
+  def contents_links
+    contents.links
+  end
+
+  def feature_section
+    BROWSER.div(:id => 'featureInfo')
+  end
+
+  ########  define methods
 
   def submit_search(query)
     search.set query
@@ -55,4 +71,27 @@ class UsaHomePage
     results_message.text
   end
 
- end
+  def contents_title
+    contents.h2.text
+  end
+
+  def contents_link_names
+    link_names = []
+    contents_links.each do |item|
+      link_text = item.text.downcase
+      link_text.gsub!(' from usa.gov','').strip if link_text =~ /e-mail/
+      link_names << link_text
+    end
+
+    link_names
+  end
+
+  def section_titles
+    titles = []
+    sections.each {|section| titles.push(section.h3.text.downcase) if section.h3.exist?}
+    titles.push(feature_section.h2.text.downcase) if feature_section.exist?
+
+    titles
+  end
+
+end
