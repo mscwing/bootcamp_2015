@@ -33,4 +33,4 @@
     | chrome            |
 
   Scenario: open home page
-    Given I am on the USA.gov home page
+    Given I am on the "USA home" page
